@@ -3,9 +3,15 @@ from bs4 import BeautifulSoup
 
 url = "https://hardwax.com/grime/?focus=only_downloads&page=1"
 
-r = requests.get(url)
+request = requests.get(url)
 
-print(r.content[:100])
+soup = BeautifulSoup(request.content, 'html.parser')
 
-soup = BeautifulSoup(r.content, 'html.parser')
-rows = soup.select('rm')
+h2_tags = soup.find_all('h2')
+
+text_tags = []
+
+for tag in h2_tags:
+    text_tags.append(tag.get_text())
+
+print(text_tags)
