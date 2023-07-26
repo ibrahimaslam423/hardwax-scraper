@@ -9,9 +9,11 @@ soup = BeautifulSoup(request.content, 'html.parser')
 
 h2_tags = soup.find_all('h2')
 
-text_tags = []
+artist_title = []
 
 for tag in h2_tags:
-    text_tags.append(tag.get_text())
+    artist_title.append(tag.get_text())
 
-print(text_tags)
+artist_title = list(dict.fromkeys(artist_title))
+
+print(artist_title)
