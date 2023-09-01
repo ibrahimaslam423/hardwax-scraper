@@ -17,3 +17,9 @@ for tag in h2_tags:
 artist_title = list(dict.fromkeys(artist_title))
 
 print(artist_title)
+
+artist_title_dict = {}
+
+artist_title_dict = dict(artist_title.split(':') for item in artist_title)
+
+print(artist_title_dict)
