@@ -1,2 +1,2 @@
 # hardwax-scraper
-Scraper written in python to scrape certain pages from hardwax.com and add them to Spotify playlists for easy perusing
+Scraper written in python to grab artist/title info from certain hardwax.com pages and add the projects to Spotify if they exist
