@@ -1,0 +1,6 @@
+This file lists dependencies!
+
+1. BeautifulSoup (python)
+2. requests (python)
+3. spotipy (python)
+4. Spotify API
