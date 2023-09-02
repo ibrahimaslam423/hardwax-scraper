@@ -3,3 +3,4 @@
 api_secrets.py
 .cache
 __pycache__
+.vscode
