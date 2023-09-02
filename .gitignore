@@ -1,0 +1,5 @@
+# ignore these
+
+api_secrets.py
+.cache
+__pycache__
