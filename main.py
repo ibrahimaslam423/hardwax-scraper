@@ -9,11 +9,11 @@ redirect_uri = 'https://www.google.com/'
 
 sp = spotipy.Spotify(auth_manager = SpotifyOAuth(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, redirect_uri=redirect_uri))
 
-json_data = []
+grime_json_data = []
 
-json_data.append(sp.search(grime_artist_title[0], 1, 0, 'album', None))
+grime_json_data.append(sp.search(grime_artist_title[0], 1, 0, 'album', None))
 
 # for project in grime_artist_title:
-#     json_data.append(sp.search(project, 1, 0, 'album', None))
+#     grime_json_data.append(sp.search(project, 1, 0, 'album', None))
 
-print(json_data)
+print(grime_json_data)
