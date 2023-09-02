@@ -4,3 +4,4 @@ This file lists dependencies!
 2. requests (python)
 3. spotipy (python)
 4. Spotify API (client secrets/id, etc.)
+5. Python JSON module
