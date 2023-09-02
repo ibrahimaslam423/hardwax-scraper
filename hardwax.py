@@ -3,17 +3,21 @@
 import requests
 from bs4 import BeautifulSoup
 
-url = "https://hardwax.com/grime/?focus=only_downloads&page=1"
+# below is gathering information for the first "grime" downloads page
 
-request = requests.get(url)
+grime_url = "https://hardwax.com/grime/?focus=only_downloads&page=1"
 
-soup = BeautifulSoup(request.content, 'html.parser')
+grime_request = requests.get(grime_url)
 
-h2_tags = soup.find_all('h2')
+soup = BeautifulSoup(grime_request.content, 'html.parser')
 
-artist_title = []
+grime_h2_tags = soup.find_all('h2')
 
-for tag in h2_tags:
-        artist_title.append(tag.get_text())
+grime_artist_title = []
 
-artist_title = list(dict.fromkeys(artist_title))
+for tag in grime_h2_tags:
+        grime_artist_title.append(tag.get_text())
+
+grime_artist_title = list(dict.fromkeys(grime_artist_title))
+
+# below is gathering information for the first "house" downloads page
