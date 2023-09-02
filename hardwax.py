@@ -1,3 +1,5 @@
+# This file just contains the code that scrapes from hardwax. I separated it into its own file for simplicity's sake.
+
 import requests
 from bs4 import BeautifulSoup
 
