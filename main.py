@@ -1,16 +1,16 @@
 # This main file checks the hardwax scrape results and attempts to add them each to a spotify playlist.
 
-import hardwax
+from hardwax import artist_title
 import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyOAuth
 from api_secrets import CLIENT_ID, CLIENT_SECRET
 
-redirect_uri = 'google.com'
+redirect_uri = 'https://www.google.com/'
 
-credentials = SpotifyClientCredentials(client_id = CLIENT_ID, client_secret = CLIENT_SECRET)
+sp = spotipy.Spotify(auth_manager = SpotifyOAuth(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, redirect_uri=redirect_uri))
 
-token = credentials.get_access_token()
+print(artist_title[6])
 
-spotify = spotipy.Spotify(auth=token)
+# result = sp.search(artist_title[6])
 
-uris = []
+# print(result)
