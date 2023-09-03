@@ -19,7 +19,10 @@ for grime_project in grime_artist_title:
 # print(grime_search_results[0])
 
 for result in grime_search_results:
-    grime_list.append(result['albums'])
+    items = result['albums']['items']
+    artist = items[0]['artists'][0]
+    name = artist['name']
+    grime_list.append(name)
 
 print(grime_list)
 
