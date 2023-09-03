@@ -3,7 +3,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-# below is gathering information for the first "grime" downloads page
+# this function information from the downloads page
 
 def get_artist_title(url):
     
