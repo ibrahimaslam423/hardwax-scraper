@@ -15,13 +15,18 @@ sp = spotipy.Spotify(auth_manager = SpotifyOAuth(client_id=CLIENT_ID, client_sec
 house_artist_title = get_artist_title(house_url)
 grime_artist_title = get_artist_title(grime_url)
 
-def spotify_search(list_of_albums):
+def get_spotify_search_results(list_of_albums):
 
     search_results = [] # full dictionary returned by spotify search
-    available_results = [] # search results simplified to artist: title
-
+    
     for project in list_of_albums:
         search_results.append(sp.search(q = project, limit = 1, type = 'album'))
+
+    return search_results 
+
+def get_available_albums(search_results):
+
+    available_results = [] # search results simplified to artist: title
 
     for result in search_results:
 
