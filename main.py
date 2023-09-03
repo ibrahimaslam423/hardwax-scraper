@@ -1,38 +1,40 @@
 # This main file checks the hardwax scrape results and attempts to add them each to a spotify playlist.
 
-from hardwax import grime_artist_title, house_artist_title
+from hardwax import get_artist_title
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from api_secrets import CLIENT_ID, CLIENT_SECRET
 from fuzzywuzzy import fuzz
 
 redirect_uri = 'https://www.google.com/'
+grime_url = 'https://hardwax.com/grime/?focus=only_downloads&page=1'
+house_url = 'https://hardwax.com/house/?focus=only_downloads&page=1'
 
 sp = spotipy.Spotify(auth_manager = SpotifyOAuth(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, redirect_uri=redirect_uri))
 
-grime_search_results = [] # this holds the full returned dictionary values from the api call
-grime_list = [] # this holds the artist: title string from what is actually on spotify
+house_artist_title = get_artist_title(house_url)
+grime_artist_title = get_artist_title(grime_url)
 
-for grime_project in grime_artist_title:
-    grime_search_results.append(sp.search(q = grime_project, limit = 1, type = 'album'))
+def spotify_search(list_of_albums):
 
-for result in grime_search_results:
-    items = result['albums']['items']
+    search_results = []
+    available_results = []
 
-    artist = items[0]['artists'][0]
-    artist_name = artist['name']
+    for project in list_of_albums:
+        search_results.append(sp.search(q = project, limit = 1, type = 'album'))
 
-    album = items[0]
-    album_name = album['name']
+    for result in search_results:
 
-    grime_list.append(artist_name + ': ' + album_name)
+        items = result['albums']['items']
 
-for name1 in grime_list:
-    for name2 in grime_artist_title:
-        ratio = fuzz.ratio(name1, name2)
-        if ratio > 50:
-            items = 
-    
+        artist = items[0]['artists'][0]
+        artist_name = artist['name']
 
-#for json_entry in grime_json_data:
-#    grime_search_results.append()
+        album = items[0]
+        album_name = album['name']
+
+        available_results.append(artist_name + ': ' + album_name)
+
+    return available_results
+
+print(spotify_search(house_artist_title))
