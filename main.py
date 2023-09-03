@@ -17,8 +17,8 @@ grime_artist_title = get_artist_title(grime_url)
 
 def spotify_search(list_of_albums):
 
-    search_results = []
-    available_results = []
+    search_results = [] # full dictionary returned by spotify search
+    available_results = [] # search results simplified to artist: title
 
     for project in list_of_albums:
         search_results.append(sp.search(q = project, limit = 1, type = 'album'))
@@ -35,6 +35,15 @@ def spotify_search(list_of_albums):
 
         available_results.append(artist_name + ': ' + album_name)
 
-    return available_results
+        available_results = list(dict.fromkeys(available_results))
 
-print(spotify_search(house_artist_title))
+    return [available_results, search_results]
+
+
+
+house_results = spotify_search(house_artist_title)[0]
+grime_results = spotify_search(grime_artist_title)[0]
+
+print(house_results)
+
+#def compare_lists(hardwax_scrape, spotify_search_results):
