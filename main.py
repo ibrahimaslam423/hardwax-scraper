@@ -15,18 +15,20 @@ sp = spotipy.Spotify(auth_manager = SpotifyOAuth(client_id=CLIENT_ID, client_sec
 house_artist_title = get_artist_title(house_url)
 grime_artist_title = get_artist_title(grime_url)
 
+# returns full dictionary returned by spotify search
 def get_spotify_search_results(list_of_albums):
 
-    search_results = [] # full dictionary returned by spotify search
+    search_results = []
     
     for project in list_of_albums:
         search_results.append(sp.search(q = project, limit = 1, type = 'album'))
 
-    return search_results 
+    return search_results
 
+# returns search results simplified to artist: title
 def get_available_albums(search_results):
 
-    available_results = [] # search results simplified to artist: title
+    available_results = []
 
     for result in search_results:
 
@@ -42,13 +44,30 @@ def get_available_albums(search_results):
 
         available_results = list(dict.fromkeys(available_results))
 
-    return [available_results, search_results]
+    return available_results
 
+def get_uris(search_results):
 
+    uris = []
 
-house_results = spotify_search(house_artist_title)[0]
-grime_results = spotify_search(grime_artist_title)[0]
+    for result in search_results:
 
-print(house_results)
+        uri = result['albums']['items'][0]['uri']
+        uris.append(uri)
 
-#def compare_lists(hardwax_scrape, spotify_search_results):
+    return uris
+
+house_search_results = get_spotify_search_results(house_artist_title)
+grime_search_results = get_spotify_search_results(grime_artist_title)
+
+house_available_albums = get_available_albums(house_search_results)
+grime_available_albums = get_available_albums(grime_search_results)
+
+house_uris = get_uris(house_search_results)
+grime_uris = get_uris(grime_search_results)
+
+print(house_uris[0])
+
+#print(fuzz.ratio(house_artist_title[1], house_available_albums[1]))
+
+# def compare_lists(hardwax_scrape, spotify_search_results):
