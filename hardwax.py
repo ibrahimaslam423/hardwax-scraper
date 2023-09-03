@@ -6,18 +6,18 @@ from bs4 import BeautifulSoup
 # below is gathering information for the first "grime" downloads page
 
 def get_artist_title(url):
+    
+    request = requests.get(url)
 
-        request = requests.get(url)
+    soup = BeautifulSoup(request.content, 'html.parser')
 
-        soup = BeautifulSoup(request.content, 'html.parser')
+    h2_tags = soup.find_all('h2')
 
-        h2_tags = soup.find_all('h2')
+    artist_title = []
 
-        artist_title = []
+    for tag in h2_tags:
+        artist_title.append(tag.get_text())
 
-        for tag in h2_tags:
-                artist_title.append(tag.get_text())
+    artist_title = list(dict.fromkeys(artist_title)) # removes duplicate results by converting to dict then back to list
 
-        artist_title = list(dict.fromkeys(artist_title))
-
-        return artist_title
+    return artist_title
