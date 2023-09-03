@@ -3,7 +3,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-# this function information from the downloads page
+# this function gets information from the downloads page
 
 def get_artist_title(url):
     
