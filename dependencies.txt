@@ -1,7 +1,7 @@
 This file lists dependencies!
 
-1. BeautifulSoup (python)
-2. requests (python)
-3. spotipy (python)
+1. BeautifulSoup (python library)
+2. requests (python library)
+3. spotipy (python library)
 4. Spotify API (client secrets/id, etc.)
-5. Python JSON module
+5. FuzzyWuzzy (python library)
