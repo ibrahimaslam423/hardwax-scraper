@@ -5,12 +5,38 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from api_secrets import CLIENT_ID, CLIENT_SECRET
 from fuzzywuzzy import fuzz
+# from refresh_token import REFRESH_TOKEN
 
 redirect_uri = 'https://www.google.com/'
-grime_url = 'https://hardwax.com/grime/?focus=only_downloads&page=1'
-house_url = 'https://hardwax.com/house/?focus=only_downloads&page=1'
+scopes = [
+  'ugc-image-upload',
+  'user-read-playback-state',
+  'user-modify-playback-state',
+  'user-read-currently-playing',
+  'streaming',
+  'app-remote-control',
+  'user-read-email',
+  'user-read-private',
+  'playlist-read-collaborative',
+  'playlist-modify-public',
+  'playlist-read-private',
+  'playlist-modify-private',
+  'user-library-modify',
+  'user-library-read',
+  'user-top-read',
+  'user-read-playback-position',
+  'user-read-recently-played',
+  'user-follow-read',
+  'user-follow-modify'
+]
 
-sp = spotipy.Spotify(auth_manager = SpotifyOAuth(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, redirect_uri=redirect_uri))
+grime_url = 'https://hardwax.com/grime/?focus=only_downloads&page=1'
+grime_playlist_id = '4FLw6LbifCpach5rATQ1CY'
+
+house_url = 'https://hardwax.com/house/?focus=only_downloads&page=1'
+house_playlist_id = '4a2W9st4cXY8qYrPPo1leg'
+
+sp = spotipy.Spotify(auth_manager = SpotifyOAuth(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, redirect_uri=redirect_uri, scope = scopes))
 
 house_artist_title = get_artist_title(house_url)
 grime_artist_title = get_artist_title(grime_url)
@@ -46,6 +72,7 @@ def get_available_albums(search_results):
 
     return available_results
 
+# returns uris from spotify search results. For use in adding music to playlist
 def get_uris(search_results):
 
     uris = []
@@ -57,17 +84,23 @@ def get_uris(search_results):
 
     return uris
 
+# this function adds all songs from a particular album uri to a playlist
+def add_songs(album_uri, playlist_id):
+    tracks = sp.album_tracks(album_uri)
+    track_uris = [track['uri'] for track in tracks['items']]
+    sp.playlist_add_items(playlist_id, track_uris)
+
+# def compare_lists(hardwax_scrape, spotify_search_results):
+
 house_search_results = get_spotify_search_results(house_artist_title)
 grime_search_results = get_spotify_search_results(grime_artist_title)
 
 house_available_albums = get_available_albums(house_search_results)
 grime_available_albums = get_available_albums(grime_search_results)
 
-house_uris = get_uris(house_search_results)
-grime_uris = get_uris(grime_search_results)
+house_album_uris = get_uris(house_search_results)
+grime_album_uris = get_uris(grime_search_results)
 
-print(house_uris[0])
+add_songs(house_album_uris, house_playlist_id)
 
 #print(fuzz.ratio(house_artist_title[1], house_available_albums[1]))
-
-# def compare_lists(hardwax_scrape, spotify_search_results):
