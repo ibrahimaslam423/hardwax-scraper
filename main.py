@@ -86,21 +86,33 @@ def get_uris(search_results):
     return uris
 
 # this function adds all songs from a particular album uri to a playlist
-def add_songs(album_uris, playlist_id):
+def add_songs(album_uri, playlist_id):
 
-    for uri in album_uris:
+    tracks = sp.album_tracks(album_uri)
+    track_uris = [track['uri'] for track in tracks['items']]
+    sp.playlist_add_items(playlist_id, track_uris)
 
-        tracks = sp.album_tracks(uri)
-        track_uris = [track['uri'] for track in tracks['items']]
-        sp.playlist_add_items(playlist_id, track_uris)
+# function to clear playlist before adding new tracks
+def clear_playlist(playlist_id):
+    results = sp.playlist_tracks(playlist_id)  
+    tracks = results['items']  
+    while results['next']:
+        results = sp.next(results)
+        tracks.extend(results['items'])
 
+    track_chunks = [tracks[i:i+100] for i in range(0, len(tracks), 100)]
+
+    for chunk in track_chunks:
+        track_uris = [track['track']['uri'] for track in chunk]
+        sp.playlist_remove_all_occurrences_of_items(playlist_id, track_uris)
+    
 # this function is kinda the main one - it compares values between scraped titles
 # and searched titles, then adds songs if they are a close enough match (> 90% similar in fuzz ratio)
 def compare_lists(hardwax_scrape, spotify_search_results, album_uris, playlist_id):
-    for index1, element1 in enumerate(hardwax_scrape):
-        for index2, element2 in enumerate(spotify_search_results):
+    for index, element1 in enumerate(hardwax_scrape):
+        for index, element2 in enumerate(spotify_search_results):
             if (fuzz.ratio(element1, element2) > 90):
-                add_songs(album_uris[index1], playlist_id)
+                add_songs(album_uris[index], playlist_id)
 
 house_search_results = get_spotify_search_results(house_artist_title)
 grime_search_results = get_spotify_search_results(grime_artist_title)
@@ -111,4 +123,11 @@ grime_available_albums = get_available_albums(grime_search_results)
 house_album_uris = get_uris(house_search_results)
 grime_album_uris = get_uris(grime_search_results)
 
-compare_lists(house_artist_title, house_available_albums, house_album_uris, house_playlist_id)
+clear_playlist(house_playlist_id)
+clear_playlist(grime_playlist_id)
+
+# adding house tracks
+#compare_lists(house_artist_title, house_available_albums, house_album_uris, house_playlist_id)
+
+# adding grime tracks
+#compare_lists(grime_artist_title, grime_available_albums, grime_album_uris, grime_playlist_id)
