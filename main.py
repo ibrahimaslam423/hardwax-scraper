@@ -87,12 +87,20 @@ def get_uris(search_results):
 
 # this function adds all songs from a particular album uri to a playlist
 def add_songs(album_uris, playlist_id):
+
     for uri in album_uris:
+
         tracks = sp.album_tracks(uri)
         track_uris = [track['uri'] for track in tracks['items']]
         sp.playlist_add_items(playlist_id, track_uris)
 
-# def compare_lists(hardwax_scrape, spotify_search_results):
+# this function is kinda the main one - it compares values between scraped titles
+# and searched titles, then adds songs if they are a close enough match (> 90% similar in fuzz ratio)
+def compare_lists(hardwax_scrape, spotify_search_results, album_uris, playlist_id):
+    for index1, element1 in enumerate(hardwax_scrape):
+        for index2, element2 in enumerate(spotify_search_results):
+            if (fuzz.ratio(element1, element2) > 90):
+                add_songs(album_uris[index1], playlist_id)
 
 house_search_results = get_spotify_search_results(house_artist_title)
 grime_search_results = get_spotify_search_results(grime_artist_title)
@@ -103,6 +111,4 @@ grime_available_albums = get_available_albums(grime_search_results)
 house_album_uris = get_uris(house_search_results)
 grime_album_uris = get_uris(grime_search_results)
 
-sp.playlist_clear(house_playlist_id)
-
-#print(fuzz.ratio(house_artist_title[1], house_available_albums[1]))
+compare_lists(house_artist_title, house_available_albums, house_album_uris, house_playlist_id)
