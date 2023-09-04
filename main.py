@@ -5,9 +5,10 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from api_secrets import CLIENT_ID, CLIENT_SECRET
 from fuzzywuzzy import fuzz
-# from refresh_token import REFRESH_TOKEN
 
 redirect_uri = 'https://www.google.com/'
+
+# I am using all scopes because I am lazy and don't want to read the docs...
 scopes = [
   'ugc-image-upload',
   'user-read-playback-state',
@@ -34,7 +35,7 @@ grime_url = 'https://hardwax.com/grime/?focus=only_downloads&page=1'
 grime_playlist_id = '4FLw6LbifCpach5rATQ1CY'
 
 house_url = 'https://hardwax.com/house/?focus=only_downloads&page=1'
-house_playlist_id = '4a2W9st4cXY8qYrPPo1leg'
+house_playlist_id = '6F0cDs13kULba4tV5fGlqi'
 
 sp = spotipy.Spotify(auth_manager = SpotifyOAuth(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, redirect_uri=redirect_uri, scope = scopes))
 
@@ -102,6 +103,6 @@ grime_available_albums = get_available_albums(grime_search_results)
 house_album_uris = get_uris(house_search_results)
 grime_album_uris = get_uris(grime_search_results)
 
-add_songs(house_album_uris, house_playlist_id)
+sp.playlist_clear(house_playlist_id)
 
 #print(fuzz.ratio(house_artist_title[1], house_available_albums[1]))
