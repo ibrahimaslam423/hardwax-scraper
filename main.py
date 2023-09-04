@@ -85,10 +85,11 @@ def get_uris(search_results):
     return uris
 
 # this function adds all songs from a particular album uri to a playlist
-def add_songs(album_uri, playlist_id):
-    tracks = sp.album_tracks(album_uri)
-    track_uris = [track['uri'] for track in tracks['items']]
-    sp.playlist_add_items(playlist_id, track_uris)
+def add_songs(album_uris, playlist_id):
+    for uri in album_uris:
+        tracks = sp.album_tracks(uri)
+        track_uris = [track['uri'] for track in tracks['items']]
+        sp.playlist_add_items(playlist_id, track_uris)
 
 # def compare_lists(hardwax_scrape, spotify_search_results):
 
