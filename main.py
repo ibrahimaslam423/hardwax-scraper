@@ -111,7 +111,7 @@ def clear_playlist(playlist_id):
 def compare_lists(hardwax_scrape, spotify_search_results, album_uris, playlist_id):
     for index, element1 in enumerate(hardwax_scrape):
         for index, element2 in enumerate(spotify_search_results):
-            if (fuzz.ratio(element1, element2) > 90):
+            if (fuzz.ratio(element1, element2) == 100):
                 add_songs(album_uris[index], playlist_id)
 
 house_search_results = get_spotify_search_results(house_artist_title)
@@ -127,7 +127,7 @@ clear_playlist(house_playlist_id)
 clear_playlist(grime_playlist_id)
 
 # adding house tracks
-#compare_lists(house_artist_title, house_available_albums, house_album_uris, house_playlist_id)
+compare_lists(house_artist_title, house_available_albums, house_album_uris, house_playlist_id)
 
 # adding grime tracks
-#compare_lists(grime_artist_title, grime_available_albums, grime_album_uris, grime_playlist_id)
+compare_lists(grime_artist_title, grime_available_albums, grime_album_uris, grime_playlist_id)
