@@ -21,7 +21,7 @@ grime_playlist_id = '4FLw6LbifCpach5rATQ1CY'
 house_url = 'https://hardwax.com/house/?focus=only_downloads&page=1'
 house_playlist_id = '6F0cDs13kULba4tV5fGlqi'
 
-sp = spotipy.Spotify(auth_manager = SpotifyOAuth(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, redirect_uri=redirect_uri, scope = scopes))
+sp = spotipy.Spotify(auth_manager = SpotifyOAuth(client_id = CLIENT_ID, client_secret = CLIENT_SECRET, redirect_uri = redirect_uri, scope = scopes))
 
 house_artist_title = get_artist_title(house_url)
 grime_artist_title = get_artist_title(grime_url)
