@@ -8,7 +8,7 @@ from fuzzywuzzy import fuzz
 
 redirect_uri = 'https://www.google.com/'
 
-# I am using all scopes because I am lazy and don't want to read the docs...
+# The only scopes that I think I need... hubris, perhaps?
 scopes = [
   'playlist-modify-public',
   'playlist-read-private',
@@ -93,10 +93,14 @@ def clear_playlist(playlist_id):
 # this function is kinda the main one - it compares values between scraped titles
 # and searched titles, then adds songs if they are a close enough match (> 90% similar in fuzz ratio)
 def compare_lists(hardwax_scrape, spotify_search_results, album_uris, playlist_id):
+
     for index, element1 in enumerate(hardwax_scrape):
+
         for index, element2 in enumerate(spotify_search_results):
+
             if (fuzz.ratio(element1, element2) == 100):
                 add_songs(album_uris[index], playlist_id)
+                print(element1, element2)
 
 house_search_results = get_spotify_search_results(house_artist_title)
 grime_search_results = get_spotify_search_results(grime_artist_title)
