@@ -8,7 +8,7 @@ from fuzzywuzzy import fuzz
 
 redirect_uri = 'https://www.google.com/'
 
-# The only scopes that I think I need... hubris, perhaps?
+# necessary scopes
 scopes = [
   'playlist-modify-public',
   'playlist-read-private',
@@ -102,20 +102,23 @@ def compare_lists(hardwax_scrape, spotify_search_results, album_uris, playlist_i
                 add_songs(album_uris[index], playlist_id)
                 print(element1, element2)
 
-house_search_results = get_spotify_search_results(house_artist_title)
-grime_search_results = get_spotify_search_results(grime_artist_title)
+def main():
+    house_search_results = get_spotify_search_results(house_artist_title)
+    grime_search_results = get_spotify_search_results(grime_artist_title)
 
-house_available_albums = get_available_albums(house_search_results)
-grime_available_albums = get_available_albums(grime_search_results)
+    house_available_albums = get_available_albums(house_search_results)
+    grime_available_albums = get_available_albums(grime_search_results)
 
-house_album_uris = get_uris(house_search_results)
-grime_album_uris = get_uris(grime_search_results)
+    house_album_uris = get_uris(house_search_results)
+    grime_album_uris = get_uris(grime_search_results)
 
-clear_playlist(house_playlist_id)
-clear_playlist(grime_playlist_id)
+    clear_playlist(house_playlist_id)
+    clear_playlist(grime_playlist_id)
 
-# adding house tracks
-compare_lists(house_artist_title, house_available_albums, house_album_uris, house_playlist_id)
+    # adding house tracks
+    compare_lists(house_artist_title, house_available_albums, house_album_uris, house_playlist_id)
 
-# adding grime tracks
-compare_lists(grime_artist_title, grime_available_albums, grime_album_uris, grime_playlist_id)
+    # adding grime tracks
+    compare_lists(grime_artist_title, grime_available_albums, grime_album_uris, grime_playlist_id)
+
+main()
