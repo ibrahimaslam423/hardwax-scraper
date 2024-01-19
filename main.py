@@ -100,7 +100,7 @@ def compare_lists(hardwax_scrape, spotify_search_results, album_uris, playlist_i
 
             if (fuzz.ratio(element1, element2) == 100):
                 add_songs(album_uris[index], playlist_id)
-                print(element1, element2)
+                print(element1, element2, album_uris[index])
 
 def main():
     house_search_results = get_spotify_search_results(house_artist_title)
