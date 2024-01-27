@@ -5,6 +5,8 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from api_secrets import CLIENT_ID, CLIENT_SECRET
 from fuzzywuzzy import fuzz
+import requests
+from bs4 import BeautifulSoup
 
 redirect_uri = 'https://www.google.com/'
 
@@ -25,6 +27,24 @@ sp = spotipy.Spotify(auth_manager = SpotifyOAuth(client_id = CLIENT_ID, client_s
 
 house_artist_title = get_artist_title(house_url)
 grime_artist_title = get_artist_title(grime_url)
+
+# this function gets information from the downloads page
+def get_artist_title(url):
+    
+    request = requests.get(url)
+
+    soup = BeautifulSoup(request.content, 'html.parser')
+
+    h2_tags = soup.find_all('h2')
+
+    artist_title = []
+
+    for tag in h2_tags:
+        artist_title.append(tag.get_text())
+
+    artist_title = list(dict.fromkeys(artist_title)) # removes duplicate results by converting to dict then back to list
+
+    return artist_title
 
 # returns full dictionary returned by spotify search
 def get_spotify_search_results(list_of_albums):
