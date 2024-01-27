@@ -3,7 +3,6 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from api_secrets import CLIENT_ID, CLIENT_SECRET
-from fuzzywuzzy import fuzz
 import requests
 from bs4 import BeautifulSoup
 
