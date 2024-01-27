@@ -109,7 +109,7 @@ def clear_playlist(playlist_id):
         sp.playlist_remove_all_occurrences_of_items(playlist_id, track_uris)
     
 # this function is kinda the main one - it compares values between scraped titles
-# and searched titles, then adds songs if they are a close enough match (== 100% match in fuzz ratio)
+# and searched titles, then adds songs if they match
 def compare_lists(hardwax_scrape, spotify_search_results, album_uris, playlist_id):
 
     for index, element1 in enumerate(hardwax_scrape):
