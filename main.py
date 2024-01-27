@@ -24,9 +24,6 @@ house_playlist_id = '6F0cDs13kULba4tV5fGlqi'
 
 sp = spotipy.Spotify(auth_manager = SpotifyOAuth(client_id = CLIENT_ID, client_secret = CLIENT_SECRET, redirect_uri = redirect_uri, scope = scopes))
 
-house_artist_title = get_artist_title(house_url)
-grime_artist_title = get_artist_title(grime_url)
-
 # this function gets information from the downloads page
 def get_artist_title(url):
     
@@ -122,6 +119,10 @@ def compare_lists(hardwax_scrape, spotify_search_results, album_uris, playlist_i
                 print(element1, element2, album_uris[index])
 
 def main():
+
+    house_artist_title = get_artist_title(house_url)
+    grime_artist_title = get_artist_title(grime_url)
+
     house_search_results = get_spotify_search_results(house_artist_title)
     grime_search_results = get_spotify_search_results(grime_artist_title)
 
