@@ -116,7 +116,6 @@ def compare_lists(hardwax_scrape, spotify_search_results, album_uris, playlist_i
 
         for index, element2 in enumerate(spotify_search_results):
 
-            #if (fuzz.ratio(element1, element2) == 100):
             if (element1 == element2):
                 add_songs(album_uris[index], playlist_id)
                 print(element1, element2, album_uris[index])
