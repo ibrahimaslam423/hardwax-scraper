@@ -69,7 +69,7 @@ def get_available_albums(search_results):
 
         available_results.append(artist_name + ': ' + album_name)
 
-        available_results = list(dict.fromkeys(available_results))
+    available_results = list(dict.fromkeys(available_results))
 
     return available_results
 
@@ -82,6 +82,8 @@ def get_uris(search_results):
 
         uri = result['albums']['items'][0]['uri']
         uris.append(uri)
+    
+    uris = list(dict.fromkeys(uris))
 
     return uris
 
@@ -114,7 +116,8 @@ def compare_lists(hardwax_scrape, spotify_search_results, album_uris, playlist_i
 
         for index, element2 in enumerate(spotify_search_results):
 
-            if (fuzz.ratio(element1, element2) == 100):
+            #if (fuzz.ratio(element1, element2) == 100):
+            if (element1 == element2):
                 add_songs(album_uris[index], playlist_id)
                 print(element1, element2, album_uris[index])
 
@@ -128,6 +131,7 @@ def main():
 
     house_available_albums = get_available_albums(house_search_results)
     grime_available_albums = get_available_albums(grime_search_results)
+    print(house_available_albums)
 
     house_album_uris = get_uris(house_search_results)
     grime_album_uris = get_uris(grime_search_results)
