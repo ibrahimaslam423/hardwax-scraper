@@ -129,7 +129,6 @@ def main():
 
     house_available_albums = get_available_albums(house_search_results)
     grime_available_albums = get_available_albums(grime_search_results)
-    print(house_available_albums)
 
     house_album_uris = get_uris(house_search_results)
     grime_album_uris = get_uris(grime_search_results)
