@@ -117,7 +117,7 @@ def compare_lists(hardwax_scrape, spotify_search_results, album_uris, playlist_i
 
             if (element1 == element2):
                 add_songs(album_uris[index], playlist_id)
-                print("Searched: ", element1, "\nAdded:      ", element2, "\n")
+                print("Searched: ", element1, "\nAdded:     ", element2, "\n")
 
 def main():
 
